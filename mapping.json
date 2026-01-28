@@ -1,0 +1,59 @@
+PUT movies
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "analysis": {
+      "tokenizer": {
+        "nori_tokenizer_mixed": {
+          "type": "nori_tokenizer",
+          "decompound_mode": "mixed"
+        }
+      },
+      "analyzer": {
+        "korean_analyzer": {
+          "type": "custom",
+          "tokenizer": "nori_tokenizer_mixed",
+          "filter": [
+            "lowercase",
+            "nori_part_of_speech"
+          ]
+        }
+      }
+    }
+  },
+"mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "analyzer": "korean_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "overview": {
+        "type": "text",
+        "analyzer": "korean_analyzer"
+      },
+      "genres": {
+        "type": "keyword"
+      },
+      "release_date": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "popularity": {
+        "type": "float"
+      },
+      "vote_average": {
+        "type": "float"
+      },
+      "poster_path": {
+        "type": "keyword",
+        "index": false 
+      }
+    }
+  }
+}

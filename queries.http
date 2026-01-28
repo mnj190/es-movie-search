@@ -1,0 +1,68 @@
+POST _bulk
+{"index":{"_index":"movies"}}
+{"title":"아이언맨","overview":"토니 스타크는 천재적인 두뇌와 재능을 가진 무기 제조업자이다. 게릴라군에게 납치당한 그는 철갑 수트를 몰래 만들어 탈출에 성공한다.","genres":["Action","Sci-Fi"],"release_date":"2008-04-30","popularity":85.5,"vote_average":7.6,"poster_path":"/ironman.jpg"}
+{"index":{"_index":"movies"}}
+{"title":"기생충","overview":"전원백수로 살 길이 막막하지만 사이는 좋은 기택 가족. 장남 기우가 명문대생 친구 민혁의 소개로 고액 과외 자리를 연결받는다.","genres":["Drama","Thriller"],"release_date":"2019-05-30","popularity":120.2,"vote_average":8.5,"poster_path":"/parasite.jpg"}
+{"index":{"_index":"movies"}}
+{"title":"다크 나이트","overview":"배트맨은 고담 시의 범죄 조직을 소탕하기 위해 노력한다. 하지만 조커라는 광기 어린 악당이 등장하여 배트맨을 시험에 들게 한다.","genres":["Action","Crime","Drama"],"release_date":"2008-08-06","popularity":98.4,"vote_average":9.0,"poster_path":"/darkknight.jpg"}
+{"index":{"_index":"movies"}}
+{"title":"겨울왕국","overview":"서로 최고의 친구였던 자매 엘사와 안나. 하지만 언니 엘사에게는 하나뿐인 동생에게조차 말 못 할 비밀이 있다.","genres":["Animation","Adventure","Family"],"release_date":"2014-01-16","popularity":75.2,"vote_average":7.3,"poster_path":"/frozen.jpg"}
+{"index":{"_index":"movies"}}
+{"title":"범죄도시","overview":"하얼빈에서 넘어와 단숨에 기존 조직들을 장악하고 가장 강력한 세력인 춘식이파 보스 황사장까지 위협하며 도시 일대의 최강자로 급부상한 신흥범죄조직의 악랄한 보스 장첸.","genres":["Action","Crime"],"release_date":"2017-10-03","popularity":60.5,"vote_average":7.2,"poster_path":"/outlaws.jpg"}
+{"index":{"_index":"movies"}}
+{"title":"인셉션","overview":"타인의 꿈에 들어가 생각을 훔치는 특수 보안요원 코브. 그를 이용해 라이벌 기업의 정보를 빼내려는 사이토는 코브에게 생각을 훔치는 것이 아닌 심어달라는 제안을 한다.","genres":["Action","Sci-Fi","Thriller"],"release_date":"2010-07-21","popularity":88.1,"vote_average":8.8,"poster_path":"/inception.jpg"}
+
+GET movies/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET movies/_search
+{
+  "query": {
+    "match": {
+      "overview": "장첸이" 
+    }
+  }
+}
+
+GET movies/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {"match": { "genres": "Action" } }
+      ],
+      "filter": [
+        {"range":{ "vote_average": { "gte": 8.0 } } }
+      ]
+    }
+  }
+}
+
+GET movies/_search
+{
+  "size": 0,
+  "aggs": {
+    "genre_count": {
+      "terms": {
+        "field": "genres",
+        "size": 10
+      }
+    }
+  }
+}
+
+GET movies/_search
+{
+  "query": {
+    "match": { "overview": "비밀" }
+  },
+  "highlight": {
+    "fields": {
+      "overview": {}
+    }
+  }
+}
