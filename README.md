@@ -1,14 +1,14 @@
-# 🎬 Elasticsearch Movie Search Engine
+# Elasticsearch Movie Search Engine
 
 Elasticsearch의 핵심 기능(검색, 집계, 시각화)을 익히기 위한 **영화 검색 엔진 프로젝트**입니다.
 Docker Compose를 통해 로컬 환경에서 즉시 실행 가능한 검색 인프라를 구축합니다.
 
-## 🛠 Tech Stack
+## Tech Stack
 - **Search Engine**: Elasticsearch 8.11.1
 - **Visualization**: Kibana 8.11.1
 - **Containerization**: Docker Compose
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Docker & Docker Compose가 설치되어 있어야 합니다.
